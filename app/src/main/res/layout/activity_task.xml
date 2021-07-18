@@ -1,0 +1,445 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".activities.TaskActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:background="@color/lighter_gray">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/layoutHeader"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:weightSum="4"
+            android:paddingHorizontal="10dp"
+            android:paddingVertical="7dp"
+            android:background="@color/black">
+
+            <ImageView
+                android:layout_width="45dp"
+                android:layout_height="45dp"
+                android:onClick="onBack"
+                android:src="@drawable/ic_arrow_back"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="TASK DETAIL"
+                android:textColor="@color/white"
+                android:fontFamily="monospace"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:layout_marginTop="10dp"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"/>
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:background="@color/white">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingHorizontal="15dp"
+                android:paddingVertical="15dp"
+                android:background="@drawable/background_separator_bottom">
+
+                <LinearLayout
+                    android:id="@+id/layoutTaskSubject"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="left|center"
+                    android:orientation="horizontal"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintRight_toRightOf="parent">
+
+                    <TextView
+                        android:text="Subject"
+                        style="@style/task_text_label" />
+
+                    <RelativeLayout style="@style/edit_box">
+
+                        <Spinner
+                            android:id="@+id/spinnerTaskSubject"
+                            android:layout_width="match_parent"
+                            android:layout_height="30dp"/>
+
+                    </RelativeLayout>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/layoutTaskTopic"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="left|center"
+                    android:orientation="horizontal"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/layoutTaskSubject"
+                    app:layout_constraintRight_toRightOf="parent">
+
+                    <TextView
+                        android:text="Topic"
+                        style="@style/task_text_label" />
+
+                    <RelativeLayout style="@style/edit_box">
+
+                        <Spinner
+                            android:id="@+id/spinnerTaskTopic"
+                            android:layout_width="match_parent"
+                            android:layout_height="30dp"/>
+
+                    </RelativeLayout>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/layoutTaskDescription"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="left|center"
+                    android:orientation="horizontal"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/layoutTaskTopic"
+                    app:layout_constraintRight_toRightOf="parent">
+
+                    <TextView
+                        android:text="Description"
+                        style="@style/task_text_label" />
+
+                    <RelativeLayout style="@style/edit_box">
+
+
+                        <EditText
+                            android:id="@+id/editTaskDescription"
+                            android:layout_width="match_parent"
+                            android:layout_height="70dp"
+                            android:background="@null"
+                            android:fontFamily="monospace"
+                            android:gravity="left|top"
+                            android:maxLength="120"
+                            android:textColor="@color/black"
+                            android:textSize="14sp" />
+
+                    </RelativeLayout>
+
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/layoutTaskPriority"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="left|center"
+                    android:orientation="horizontal"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/layoutTaskDescription"
+                    app:layout_constraintRight_toRightOf="parent">
+
+                    <TextView
+                        android:text="Priority"
+                        style="@style/task_text_label" />
+
+                    <RelativeLayout style="@style/edit_box">
+
+                        <Spinner
+                            android:id="@+id/spinnerTaskPriority"
+                            android:layout_width="match_parent"
+                            android:layout_height="30dp"/>
+
+                    </RelativeLayout>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/layoutDueDate"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="left|center"
+                    android:orientation="horizontal"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/layoutTaskPriority"
+                    app:layout_constraintRight_toRightOf="parent">
+
+                    <TextView
+                        android:text="Due Date"
+                        style="@style/task_text_label" />
+
+                    <RelativeLayout style="@style/edit_box">
+
+                        <TextView
+                            android:id="@+id/txtTaskDueDate"
+                            android:layout_width="wrap_content"
+                            android:layout_height="30dp"
+                            android:background="@null"
+                            android:fontFamily="monospace"
+                            android:gravity="left|center"
+                            android:text="2021-05-10"
+                            android:maxLines="1"
+                            android:textColor="@color/black"
+                            android:textSize="14sp" />
+
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:id="@+id/imgTaskCalendar"
+                        style="@style/edit_box"
+                        android:layout_marginLeft="15dp"
+                        android:paddingHorizontal="5dp">
+
+                        <ImageView
+                            android:layout_width="30dp"
+                            android:layout_height="30dp"
+                            android:src="@drawable/ic_calendar"/>
+
+                    </RelativeLayout>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/layoutTaskEstimateTime"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="left|center"
+                    android:paddingBottom="15dp"
+                    android:background="@drawable/background_separator_bottom"
+                    android:orientation="horizontal"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/layoutDueDate"
+                    app:layout_constraintRight_toRightOf="parent">
+
+                    <TextView
+                        android:text="Estimate\nTime"
+                        style="@style/task_text_label" />
+
+                    <RelativeLayout style="@style/edit_box">
+
+                        <EditText
+                            android:id="@+id/editTaskEstimateTime"
+                            android:layout_width="30dp"
+                            android:layout_height="30dp"
+                            android:background="@null"
+                            android:fontFamily="monospace"
+                            android:gravity="center"
+                            android:text="110"
+                            android:maxLines="1"
+                            android:inputType="numberSigned"
+                            android:textColor="@color/black"
+                            android:textSize="14sp" />
+
+                    </RelativeLayout>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="30dp"
+                        android:layout_marginLeft="7dp"
+                        android:background="@null"
+                        android:fontFamily="monospace"
+                        android:gravity="center"
+                        android:text="Hours"
+                        android:maxLines="1"
+                        android:textColor="@color/black"
+                        android:textSize="14sp" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/layoutTaskEffortTime"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingTop="15dp"
+                    android:gravity="left|center"
+                    android:orientation="horizontal"
+                    android:background="@drawable/background_separator_top"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/layoutTaskEstimateTime"
+                    app:layout_constraintRight_toRightOf="parent">
+
+                    <TextView
+                        android:text="Effort\nTime"
+                        style="@style/task_text_label" />
+
+                    <RelativeLayout style="@style/edit_box">
+
+                        <EditText
+                            android:id="@+id/editTaskEffortTime"
+                            android:layout_width="30dp"
+                            android:layout_height="30dp"
+                            android:background="@null"
+                            android:fontFamily="monospace"
+                            android:gravity="center"
+                            android:text="110"
+                            android:maxLines="1"
+                            android:inputType="numberSigned"
+                            android:textColor="@color/black"
+                            android:textSize="14sp" />
+
+                    </RelativeLayout>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="30dp"
+                        android:layout_marginLeft="7dp"
+                        android:background="@null"
+                        android:fontFamily="monospace"
+                        android:gravity="center"
+                        android:text="Hours"
+                        android:maxLines="1"
+                        android:textColor="@color/black"
+                        android:textSize="14sp" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/layoutTaskStatus"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="left|center"
+                    android:orientation="horizontal"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/layoutTaskEffortTime"
+                    app:layout_constraintRight_toRightOf="parent">
+
+                    <TextView
+                        android:text="Status"
+                        style="@style/task_text_label" />
+
+                    <RelativeLayout style="@style/edit_box">
+
+                        <Spinner
+                            android:id="@+id/spinnerTaskStatus"
+                            android:layout_width="match_parent"
+                            android:layout_height="30dp"/>
+
+                    </RelativeLayout>
+
+                </LinearLayout>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingTop="15dp"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/layoutTaskStatus"
+                    app:layout_constraintRight_toRightOf="parent">
+
+                    <TextView
+                        android:id="@+id/txtTaskInputCheck"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Invalid Input"
+                        android:textColor="@color/red"
+                        android:fontFamily="monospace"
+                        android:gravity="center"
+                        android:paddingVertical="2dp"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintRight_toRightOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"/>
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/layoutUpdateTask"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="left|center"
+                        android:orientation="horizontal"
+                        app:layout_constraintTop_toBottomOf="@+id/txtTaskInputCheck"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintRight_toRightOf="parent"
+                        app:layout_constraintBottom_toBottomOf="parent">
+
+                        <TextView
+                            android:id="@+id/txtActionTaskUpdate"
+                            android:text="UPDATE"
+                            style="@style/btn_action_task"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintRight_toLeftOf="@+id/txtActionTaskDelete"
+                            app:layout_constraintLeft_toLeftOf="parent"
+                            app:layout_constraintBottom_toBottomOf="parent" />
+
+                        <TextView
+                            android:id="@+id/txtActionTaskDelete"
+                            android:text="DELETE"
+                            style="@style/btn_action_task"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintRight_toRightOf="parent"
+                            app:layout_constraintLeft_toRightOf="@+id/txtActionTaskUpdate"
+                            app:layout_constraintBottom_toBottomOf="parent"/>
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/layoutAddTask"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="left|center"
+                        android:orientation="horizontal"
+                        app:layout_constraintTop_toBottomOf="@+id/txtTaskInputCheck"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintRight_toRightOf="parent"
+                        app:layout_constraintBottom_toBottomOf="parent">
+
+                        <TextView
+                            android:id="@+id/txtActionTaskAdd"
+                            android:text="ADD"
+                            style="@style/btn_action_task"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintRight_toRightOf="parent"
+                            app:layout_constraintLeft_toLeftOf="parent"
+                            app:layout_constraintBottom_toBottomOf="parent"/>
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </RelativeLayout>
+
+    </LinearLayout>
+
+    <RelativeLayout
+        android:id="@+id/layoutSelectDate"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#65000000"
+        android:gravity="center"
+        android:visibility="gone">
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cardEndDate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:cardCornerRadius="10dp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <CalendarView
+                android:id="@+id/calendarTaskDueDate"
+                android:layout_width="330dp"
+                android:layout_height="350dp" />
+
+        </androidx.cardview.widget.CardView>
+
+    </RelativeLayout>
+
+</FrameLayout>

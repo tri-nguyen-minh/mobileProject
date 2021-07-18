@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/lighter_gray"
+    tools:context=".fragments.SubjectFragment">
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@color/black">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="left|center"
+            android:orientation="horizontal"
+            android:paddingHorizontal="15dp"
+            android:paddingVertical="10dp"
+            android:background="@drawable/background_separator_bottom">
+
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginVertical="5dp"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                android:background="@drawable/background_date_default">
+
+                <Spinner
+                    android:id="@+id/spinnerSemester"
+                    android:layout_width="wrap_content"
+                    android:layout_height="40dp"/>
+
+            </RelativeLayout>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:background="@color/black"
+        android:layout_marginTop="10dp">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingHorizontal="15dp"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"
+            android:background="@drawable/background_separator_bottom">
+
+            <LinearLayout
+                android:id="@+id/layoutSemesterDate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginLeft="10dp"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toTopOf="@+id/txtPlanSemesterName">
+
+                <TextView
+                    android:id="@+id/txtSemesterStartDate"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="10/02/2021"
+                    android:fontFamily="monospace"
+                    android:textStyle="bold"
+                    android:textColor="@color/light_gray"
+                    android:textSize="15dp"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text=" - "
+                    android:fontFamily="monospace"
+                    android:textColor="@color/light_gray"
+                    android:textSize="15dp"/>
+
+                <TextView
+                    android:id="@+id/txtSemesterEndDate"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="10/02/2021"
+                    android:fontFamily="monospace"
+                    android:textStyle="bold"
+                    android:textColor="@color/light_gray"
+                    android:textSize="15dp"/>
+
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/txtPlanSemesterName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Add Services"
+                android:fontFamily="monospace"
+                android:textStyle="bold"
+                android:textColor="@color/white"
+                android:textSize="24dp"
+                android:layout_marginVertical="5dp"
+                android:layout_marginLeft="10dp"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/layoutSemesterDate"
+                app:layout_constraintBottom_toTopOf="@+id/layoutSubjectAdded"/>
+
+            <LinearLayout
+                android:id="@+id/layoutSubjectAdded"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginLeft="10dp"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/txtPlanSemesterName"
+                app:layout_constraintBottom_toBottomOf="parent">
+
+                <TextView
+                    android:id="@+id/txtSubjectCount"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="10"
+                    android:fontFamily="monospace"
+                    android:textStyle="bold"
+                    android:textColor="@color/white"
+                    android:textSize="16dp"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text=" Subject(s) Added"
+                    android:fontFamily="monospace"
+                    android:textColor="@color/white"
+                    android:textSize="15dp"/>
+
+            </LinearLayout>
+
+            <ImageView
+                android:id="@+id/imgAddSubject"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:src="@drawable/ic_add_circle"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"/>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recViewSubjectList"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white"/>
+
+    </LinearLayout>
+
+
+
+</LinearLayout>
