@@ -36,7 +36,7 @@ public class SubjectActivity extends AppCompatActivity {
     private PlanTopicDBHelper planTopicDBHelper;
     private TaskDBHelper taskDBHelper;
 
-    private String subjectId;
+    private String subjectId, studentId;
     private int planSubjectId;
     private PlanSubject planSubject;
     private Subject subject;
@@ -54,6 +54,7 @@ public class SubjectActivity extends AppCompatActivity {
         taskDBHelper = new TaskDBHelper(db);
 
         intent = getIntent();
+        studentId = intent.getStringExtra("STUDENT_ID");
         planSubjectId = intent.getIntExtra("PLAN_SUBJECT_ID", 0);
         planSubject = planSubjectDBHelper.getPlanSubjectsById(planSubjectId);
         subjectId = planSubject.getSubjectId();
@@ -72,6 +73,7 @@ public class SubjectActivity extends AppCompatActivity {
         adapter.setTopicList(topicList);
         adapter.setPlanSubjectId(planSubjectId);
         adapter.setSubject(subject);
+        adapter.setRecViewLayout(R.layout.recycle_view_topic_card);
         recViewCommon.setAdapter(adapter);
         recViewCommon.setLayoutManager(new LinearLayoutManager(getApplicationContext(), RecyclerView.VERTICAL,false));
 
@@ -86,6 +88,7 @@ public class SubjectActivity extends AppCompatActivity {
                 public void onClick(View v) {
                     intent = new Intent(getApplicationContext(), TaskActivity.class);
                     intent.putExtra("SUBJECT_ID", subjectId);
+                    intent.putExtra("STUDENT_ID", studentId);
                     startActivity(intent);
                 }
             });
@@ -95,6 +98,8 @@ public class SubjectActivity extends AppCompatActivity {
     }
 
     public void onBack(View view) {
-        startActivity(new Intent(getApplicationContext(), MainActivity.class));
+        intent = new Intent(getApplicationContext(), MainActivity.class);
+        intent.putExtra("STUDENT_ID", studentId);
+        startActivity(intent);
     }
 }

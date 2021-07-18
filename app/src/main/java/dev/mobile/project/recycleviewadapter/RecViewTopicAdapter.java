@@ -31,6 +31,7 @@ public class RecViewTopicAdapter extends RecyclerView.Adapter<RecViewTopicAdapte
     private int planSubjectId;
     private Subject subject;
     private int planTopicId;
+    private int recViewLayout;
 
     private Context context;
     private Activity activity;
@@ -64,47 +65,55 @@ public class RecViewTopicAdapter extends RecyclerView.Adapter<RecViewTopicAdapte
         this.subject = subject;
     }
 
+    public void setRecViewLayout(int recViewLayout) {
+        this.recViewLayout = recViewLayout;
+    }
+
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.recycle_view_topic_card, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(recViewLayout, parent, false);
         ViewHolder holder = new ViewHolder(view);
         return holder;
     }
 
     @Override
     public void onBindViewHolder(RecViewTopicAdapter.ViewHolder holder, int position) {
+        if (recViewLayout == R.layout.recycle_view_topic_card) {
+            holder.txtTopicName.setText(topicList.get(position).getTopicName());
+            holder.txtDescription.setText(topicList.get(position).getTopicDescription());
+            holder.imgTopic.setImageResource(R.drawable.ic_key_down);
+            holder.layoutTopicTask.setVisibility(View.GONE);
 
-        holder.txtTopicName.setText(topicList.get(position).getTopicName());
-        holder.txtDescription.setText(topicList.get(position).getTopicDescription());
-        holder.imgTopic.setImageResource(R.drawable.ic_key_down);
-        holder.layoutTopicTask.setVisibility(View.GONE);
-
-        holder.parent.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (holder.layoutTopicTask.getVisibility() == View.GONE) {
-                    holder.layoutTopicTask.setVisibility(View.VISIBLE);
-                    holder.imgTopic.setImageResource(R.drawable.ic_key_up);
-                } else {
-                    holder.layoutTopicTask.setVisibility(View.GONE);
-                    holder.imgTopic.setImageResource(R.drawable.ic_key_down);
+            holder.parent.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (holder.layoutTopicTask.getVisibility() == View.GONE) {
+                        holder.layoutTopicTask.setVisibility(View.VISIBLE);
+                        holder.imgTopic.setImageResource(R.drawable.ic_key_up);
+                    } else {
+                        holder.layoutTopicTask.setVisibility(View.GONE);
+                        holder.imgTopic.setImageResource(R.drawable.ic_key_down);
+                    }
                 }
+            });
+            planTopic = planTopicDBHelper.getPlanTopicByTopicAndPlanSubject(topicList.get(position).getTopicId(), planSubjectId);
+            if (planTopic != null) {
+                planTopicId = planTopic.getPlanTopicId();
+                taskList = taskDBHelper.getAllTaskByPlanTopic(planTopic.getPlanTopicId());
+            } else {
+                planTopicId = 0;
+                taskList = new ArrayList<>();
             }
-        });
-        planTopic = planTopicDBHelper.getPlanTopicByTopicAndPlanSubject(topicList.get(position).getTopicId(), planSubjectId);
-        if (planTopic != null) {
-            planTopicId = planTopic.getPlanTopicId();
-            taskList = taskDBHelper.getAllTaskByPlanTopic(planTopic.getPlanTopicId());
+            holder.txtTaskCount.setText(taskList.size() + "");
+            RecViewTaskAdapter adapter = new RecViewTaskAdapter(context, activity, db);
+            adapter.setSubject(subject);
+            adapter.setTaskList(taskList);
+            holder.recViewTopicTask.setAdapter(adapter);
+            holder.recViewTopicTask.setLayoutManager(new LinearLayoutManager(context, RecyclerView.VERTICAL,false));
         } else {
-            planTopicId = 0;
-            taskList = new ArrayList<>();
+            holder.txtTopicName.setText(topicList.get(position).getTopicName());
+            holder.txtDescription.setText(topicList.get(position).getTopicDescription());
         }
-        holder.txtTaskCount.setText(taskList.size() + "");
-        RecViewTaskAdapter adapter = new RecViewTaskAdapter(context, activity, db);
-        adapter.setSubject(subject);
-        adapter.setTaskList(taskList);
-        holder.recViewTopicTask.setAdapter(adapter);
-        holder.recViewTopicTask.setLayoutManager(new LinearLayoutManager(context, RecyclerView.VERTICAL,false));
 
     }
 

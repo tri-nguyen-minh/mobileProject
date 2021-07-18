@@ -57,6 +57,29 @@ public class SubjectDBHelper {
         return subjects;
     }
 
+    public List<Subject> searchAllSubjectsByIdAndName(String subjectId, String subjectName) {
+        List<Subject> subjects = new ArrayList<>();
+        String selectQuery = "SELECT  * FROM " + TABLE_NAME + " WHERE "
+                + KEY_SUBJECT_ID + " LIKE '%" + subjectId + "%' AND "
+                + KEY_SUBJECT_NAME + " LIKE '%" + subjectName + "%'";
+
+        db = helper.getReadableDatabase();
+        cursor = db.rawQuery(selectQuery, null);
+        Subject subject;
+        if (cursor.moveToFirst()) {
+            do {
+                subject = new Subject();
+                subject.setSubjectId(cursor.getString(cursor.getColumnIndex(KEY_SUBJECT_ID)));
+                subject.setSubjectName(cursor.getString(cursor.getColumnIndex(KEY_SUBJECT_NAME)));
+
+                subjects.add(subject);
+            } while (cursor.moveToNext());
+        }
+
+        helper.closeDatabase(db);
+        return subjects;
+    }
+
     public Subject getSubjectById(String subjectId) {
         String selectQuery = "SELECT  * FROM " + TABLE_NAME + " WHERE "
                 + KEY_SUBJECT_ID + " = '" + subjectId + "'";

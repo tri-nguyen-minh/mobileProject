@@ -38,8 +38,6 @@ public class StudentDBHelper {
     public Student getStudentByMail(String mail) {
         String selectQuery = "SELECT  * FROM " + TABLE_NAME + " WHERE "
                 + KEY_STUDENT_EMAIL + " = '" + mail + "'";
-//        String selectQuery = "SELECT  * FROM Students WHERE "
-//                + KEY_STUDENT_EMAIL + " = '" + mail + "'";
 
         db = helper.getReadableDatabase();
         cursor = db.rawQuery(selectQuery, null);
@@ -47,6 +45,26 @@ public class StudentDBHelper {
         Student student = null;
         if (cursor.moveToFirst()) {
             
+            student = new Student();
+            student.setStudentId(cursor.getString(cursor.getColumnIndex(KEY_STUDENT_ID)));
+            student.setStudentName(cursor.getString(cursor.getColumnIndex(KEY_STUDENT_NAME)));
+            student.setEmail(cursor.getString(cursor.getColumnIndex(KEY_STUDENT_EMAIL)));
+
+        }
+        helper.closeDatabase(db);
+        return student;
+    }
+
+    public Student getStudentByStudentId(String id) {
+        String selectQuery = "SELECT  * FROM " + TABLE_NAME + " WHERE "
+                + KEY_STUDENT_ID + " = '" + id + "'";
+
+        db = helper.getReadableDatabase();
+        cursor = db.rawQuery(selectQuery, null);
+
+        Student student = null;
+        if (cursor.moveToFirst()) {
+
             student = new Student();
             student.setStudentId(cursor.getString(cursor.getColumnIndex(KEY_STUDENT_ID)));
             student.setStudentName(cursor.getString(cursor.getColumnIndex(KEY_STUDENT_NAME)));

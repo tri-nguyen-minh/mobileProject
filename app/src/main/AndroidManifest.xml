@@ -9,15 +9,18 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.MobileProject">
-        <activity android:name=".activities.TaskActivity"></activity>
-        <activity android:name=".activities.SubjectActivity" />
-        <activity android:name=".activities.MainActivity">
+        <activity android:name=".activities.NewSubjectActivity"></activity>
+        <activity android:name=".activities.SearchSubjectActivity" />
+        <activity android:name=".activities.LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".activities.TaskActivity" />
+        <activity android:name=".activities.SubjectActivity" />
+        <activity android:name=".activities.MainActivity" />
     </application>
 
 </manifest>

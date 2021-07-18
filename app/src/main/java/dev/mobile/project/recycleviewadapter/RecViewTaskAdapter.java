@@ -65,7 +65,9 @@ public class RecViewTaskAdapter extends RecyclerView.Adapter<RecViewTaskAdapter.
         holder.parent.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                String studentId = activity.getIntent().getStringExtra("STUDENT_ID");
                 intent = new Intent(context, TaskActivity.class);
+                intent.putExtra("STUDENT_ID", studentId);
                 intent.putExtra("TASK_ID", task.getTaskId());
                 activity.startActivity(intent);
             }

@@ -88,6 +88,7 @@ public class TaskActivity extends AppCompatActivity {
 
         intent = getIntent();
 
+        studentId = intent.getStringExtra("STUDENT_ID");
         taskId = intent.getIntExtra("TASK_ID", 0);
         subjectId = intent.getStringExtra("SUBJECT_ID");
 
@@ -397,6 +398,7 @@ public class TaskActivity extends AppCompatActivity {
 
     private void resetSubject() {
         intent = new Intent(getApplicationContext(), SubjectActivity.class);
+        intent.putExtra("STUDENT_ID", studentId);
         intent.putExtra("PLAN_SUBJECT_ID", planSubjectList.get(spinnerSubject.getSelectedItemPosition()).getPlanSubjectId());
         startActivity(intent);
     }

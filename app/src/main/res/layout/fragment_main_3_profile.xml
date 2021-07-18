@@ -1,14 +1,111 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".fragments.ProfileFragment">
+    tools:context=".fragments.ProfileFragment"
+    android:background="@color/light_gray">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:layout_height="590dp"
+        android:orientation="vertical"
+        android:gravity="left|center"
+        android:background="@drawable/background_tab"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        android:layout_gravity="bottom|center">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <LinearLayout
+                style="@style/profile_tab"
+                android:background="@drawable/background_separator_vertical">
+
+                <TextView
+                    android:text="Name"
+                    android:src="@drawable/ic_return"
+                    style="@style/text_profile_label" />
+
+                <TextView
+                    android:id="@+id/txtStudentName"
+                    android:text="Sign out"
+                    style="@style/profile_text"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                style="@style/profile_tab">
+
+                <TextView
+                    android:text="ID"
+                    android:src="@drawable/ic_return"
+                    style="@style/text_profile_label" />
+
+                <TextView
+                    android:id="@+id/txtStudentId"
+                    android:text="Sign out"
+                    style="@style/profile_text"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                style="@style/profile_tab">
+
+                <TextView
+                    android:text="Email"
+                    android:src="@drawable/ic_return"
+                    style="@style/text_profile_label" />
+
+                <TextView
+                    android:id="@+id/txtStudentMail"
+                    android:text="Sign out"
+                    style="@style/profile_text"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/btnLogout"
+                style="@style/profile_tab">
+
+                <ImageView
+                    android:layout_width="60dp"
+                    android:layout_height="35dp"
+                    android:layout_marginHorizontal="10dp"
+                    android:src="@drawable/ic_return" />
+
+                <TextView
+                    android:text="Sign out"
+                    style="@style/profile_text"/>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/imgProfileUser"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="top|center">
+
+        <ImageView
+            android:layout_marginTop="55dp"
+            android:layout_width="165dp"
+            android:layout_height="165dp"
+            android:background="@drawable/background_circle_gray"
+            android:src="@drawable/ic_nav_profile"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
 
 </FrameLayout>

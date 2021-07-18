@@ -24,6 +24,7 @@ import dev.mobile.project.DBHelper.PlanSemesterDBHelper;
 import dev.mobile.project.DBHelper.PlanSubjectDBHelper;
 import dev.mobile.project.DBHelper.SemesterDBHelper;
 import dev.mobile.project.R;
+import dev.mobile.project.activities.SearchSubjectActivity;
 import dev.mobile.project.dto.PlanSemester;
 import dev.mobile.project.dto.PlanSubject;
 import dev.mobile.project.dto.Semester;
@@ -110,6 +111,14 @@ public class SubjectFragment extends Fragment {
                 } else {
                     imgCommon.setVisibility(View.VISIBLE);
                 }
+                imgCommon.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        intent = new Intent(getContext(), SearchSubjectActivity.class);
+                        intent.putExtra("STUDENT_ID", studentId);
+                        startActivity(intent);
+                    }
+                });
             }
 
             @Override

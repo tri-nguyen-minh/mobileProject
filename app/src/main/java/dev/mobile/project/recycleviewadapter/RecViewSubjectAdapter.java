@@ -13,27 +13,23 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.List;
 
-import dev.mobile.project.DBHelper.DatabaseHelper;
-import dev.mobile.project.DBHelper.SubjectDBHelper;
 import dev.mobile.project.R;
-import dev.mobile.project.activities.SubjectActivity;
-import dev.mobile.project.dto.PlanSubject;
+import dev.mobile.project.activities.NewSubjectActivity;
+import dev.mobile.project.dto.Subject;
 
-public class RecViewPlanSubjectAdapter extends RecyclerView.Adapter<RecViewPlanSubjectAdapter.ViewHolder>{
+public class RecViewSubjectAdapter extends RecyclerView.Adapter<RecViewSubjectAdapter.ViewHolder>{
 
     private Context context;
     private Activity activity;
-    private SubjectDBHelper subjectDBHelper;
     private Intent intent;
-    private List<PlanSubject> subjectList;
+    private List<Subject> subjectList;
 
-    public RecViewPlanSubjectAdapter(Context context, Activity activity, DatabaseHelper db) {
+    public RecViewSubjectAdapter(Context context, Activity activity) {
         this.context = context;
         this.activity = activity;
-        subjectDBHelper = new SubjectDBHelper(db);
     }
 
-    public void setSubjectList(List<PlanSubject> subjectList) {
+    public void setSubjectList(List<Subject> subjectList) {
         this.subjectList = subjectList;
     }
 
@@ -45,18 +41,17 @@ public class RecViewPlanSubjectAdapter extends RecyclerView.Adapter<RecViewPlanS
     }
 
     @Override
-    public void onBindViewHolder(RecViewPlanSubjectAdapter.ViewHolder holder, int position) {
-        String subjectId = subjectList.get(position).getSubjectId();
-        holder.txtSubjectId.setText(subjectId);
-        holder.txtSubjectName.setText(subjectDBHelper.getSubjectById(subjectId).getSubjectName());
+    public void onBindViewHolder(RecViewSubjectAdapter.ViewHolder holder, int position) {
+        holder.txtSubjectId.setText(subjectList.get(position).getSubjectId());
+        holder.txtSubjectName.setText(subjectList.get(position).getSubjectName());
         holder.parent.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                int planSubjectId = subjectList.get(position).getPlanSubjectId();
+
                 String studentId = activity.getIntent().getStringExtra("STUDENT_ID");
-                intent = new Intent(context, SubjectActivity.class);
+                Intent intent = new Intent(context, NewSubjectActivity.class);
                 intent.putExtra("STUDENT_ID", studentId);
-                intent.putExtra("PLAN_SUBJECT_ID", planSubjectId);
+                intent.putExtra("SUBJECT_ID", subjectList.get(position).getSubjectId());
                 activity.startActivity(intent);
             }
         });

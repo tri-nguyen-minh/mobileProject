@@ -6,7 +6,7 @@
     android:layout_height="wrap_content"
     android:orientation="vertical"
     android:gravity="left|center"
-    android:paddingHorizontal="5dp"
+    android:paddingHorizontal="10dp"
     android:background="@drawable/background_separator_bottom"
     android:id="@+id/subjectCard">
 
@@ -24,16 +24,33 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.0">
 
-            <TextView
-                android:id="@+id/txtSubjectId"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:fontFamily="monospace"
-                android:gravity="center"
-                android:text="30 - 60 minutes"
-                android:textColor="@color/dark_gray"
-                android:textSize="16sp"
-                android:textStyle="bold" />
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/txtSubjectId"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="monospace"
+                    android:gravity="center"
+                    android:text="30 - 60 minutes"
+                    android:textColor="@color/dark_gray"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent" />
+
+                <ImageView
+                    android:layout_width="50dp"
+                    android:layout_height="40dp"
+                    android:src="@drawable/ic_key_right"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"/>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
             <TextView
                 android:id="@+id/txtSubjectName"
@@ -44,18 +61,11 @@
                 android:gravity="left|center"
                 android:text="Computer Organization and Architecture"
                 android:textColor="@color/black"
-                android:textSize="17sp"
+                android:textSize="19sp"
                 android:textStyle="bold" />
 
         </LinearLayout>
 
-        <ImageView
-            android:layout_width="50dp"
-            android:layout_height="60dp"
-            android:src="@drawable/ic_key_right"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="@color/lighter_gray"
-    tools:context=".activities.SubjectActivity">
+    tools:context=".activities.NewSubjectActivity">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/layoutHeader"
@@ -23,7 +23,7 @@
             android:layout_width="45dp"
             android:layout_height="45dp"
             android:onClick="onBack"
-            android:src="@drawable/ic_home"
+            android:src="@drawable/ic_arrow_back"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"/>
@@ -43,22 +43,6 @@
             app:layout_constraintBottom_toBottomOf="parent"/>
 
 
-        <TextView
-            android:id="@+id/txtAddTask"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginRight="10dp"
-            android:text="ADD\nTASK"
-            android:gravity="center"
-            android:textColor="@color/gold"
-            android:fontFamily="monospace"
-            android:textSize="16sp"
-            android:textStyle="bold"
-            android:onClick="onBack"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"/>
-
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <RelativeLayout
@@ -74,20 +58,69 @@
             android:paddingVertical="15dp"
             android:background="@drawable/background_separator_bottom">
 
-            <TextView
-                android:id="@+id/txtSubjectId"
-                android:layout_width="wrap_content"
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="10/02/2021"
-                android:fontFamily="monospace"
-                android:textStyle="bold"
-                android:textColor="@color/gray"
-                android:textSize="15dp"
-                android:layout_marginLeft="10dp"
+                android:layout_marginBottom="15dp"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintBottom_toTopOf="@+id/txtSubjectName"/>
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintBottom_toTopOf="@+id/txtSubjectName">
 
+                <TextView
+                    android:id="@+id/txtSubjectId"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="10/02/2021"
+                    android:fontFamily="monospace"
+                    android:textStyle="bold"
+                    android:textColor="@color/gray"
+                    android:textSize="15dp"
+                    android:layout_marginLeft="10dp"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"/>
+
+
+                <LinearLayout
+                    android:id="@+id/layoutSubjectStatus"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:padding="5dp"
+                    android:gravity="center"
+                    android:background="@drawable/background_like"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Added"
+                        android:gravity="right|center"
+                        android:paddingHorizontal="10dp"
+                        android:fontFamily="monospace"
+                        android:textColor="@color/black"
+                        android:textSize="16sp"/>
+
+                    <RelativeLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingLeft="5dp"
+                        android:background="@drawable/background_separator_left">
+
+                        <ImageView
+                            android:id="@+id/imgSubjectStatus"
+                            android:layout_width="30dp"
+                            android:layout_height="30dp"
+                            android:src="@drawable/ic_add"/>
+                    </RelativeLayout>
+
+                </LinearLayout>
+
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
             <TextView
                 android:id="@+id/txtSubjectName"
@@ -97,17 +130,15 @@
                 android:fontFamily="monospace"
                 android:textStyle="bold"
                 android:textColor="@color/black"
-                android:textSize="24dp"
+                android:textSize="22dp"
                 android:layout_marginTop="5dp"
                 android:layout_marginLeft="10dp"
                 app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/txtSubjectId"
                 app:layout_constraintBottom_toBottomOf="parent"/>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </RelativeLayout>
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -139,5 +170,6 @@
             android:background="@color/white"/>
 
     </LinearLayout>
+
 
 </LinearLayout>
