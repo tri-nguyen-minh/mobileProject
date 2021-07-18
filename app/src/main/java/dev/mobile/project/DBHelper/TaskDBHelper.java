@@ -147,6 +147,37 @@ public class TaskDBHelper {
         return tasks;
     }
 
+    public List<Task> searchTaskByCondition(String description, int priority, boolean status) {
+        List<Task> tasks = new ArrayList<>();
+        String selectQuery = "SELECT  * FROM " + TABLE_NAME + " WHERE "
+                + KEY_TASK_DESCRIPTION + " LIKE '%" + description + "%' AND "
+                + KEY_PRIORITY + " = " + priority + " AND "
+                + KEY_STATUS + " = " + status;
+
+        db = helper.getReadableDatabase();
+        cursor = db.rawQuery(selectQuery, null);
+        Task task;
+        if (cursor.moveToFirst()) {
+            do {
+                task = new Task();
+                task.setTaskId(cursor.getInt(cursor.getColumnIndex(KEY_TASK_ID)));
+                task.setPlanTopicId(cursor.getInt(cursor.getColumnIndex(KEY_PLAN_TOPIC_ID)));
+                task.setEstimateTime(cursor.getInt(cursor.getColumnIndex(KEY_ESTIMATE_TIME)));
+                task.setEffortTime(cursor.getInt(cursor.getColumnIndex(KEY_EFFORT_TIME)));
+                task.setDescription(cursor.getString(cursor.getColumnIndex(KEY_TASK_DESCRIPTION)));
+                task.setDueDate(cursor.getString(cursor.getColumnIndex(KEY_DUE_DATE)));
+                task.setCreateDate(cursor.getString(cursor.getColumnIndex(KEY_CREATE_DATE)));
+                task.setPriority(cursor.getInt(cursor.getColumnIndex(KEY_PRIORITY)));
+                task.setComplete(status);
+
+                tasks.add(task);
+            } while (cursor.moveToNext());
+        }
+
+        helper.closeDatabase(db);
+        return tasks;
+    }
+
     public int updateTask(Task task) {
         SQLiteDatabase db = helper.getWritableDatabase();
 

@@ -67,29 +67,6 @@ public class SemesterDBHelper {
         return semesters;
     }
 
-    public Semester getSemesterById(String semesterId) {
-        String selectQuery = "SELECT  * FROM " + TABLE_NAME + " WHERE "
-                + KEY_SEMESTER_ID + " = '" + semesterId + "'";
-
-        db = helper.getReadableDatabase();
-        cursor = db.rawQuery(selectQuery, null);
-
-        Semester semester = null;
-        if (cursor.moveToFirst()) {
-            
-            semester = new Semester();
-            semester.setSemesterId(cursor.getString(cursor.getColumnIndex(KEY_SEMESTER_ID)));
-            semester.setSemesterName(cursor.getString(cursor.getColumnIndex(KEY_SEMESTER_NAME)));
-            semester.setStartDate(cursor.getString(cursor.getColumnIndex(KEY_START_DATE)));
-            semester.setEndDate(cursor.getString(cursor.getColumnIndex(KEY_END_DATE)));
-            int status = cursor.getInt(cursor.getColumnIndex(KEY_SEMESTER_STATUS));
-            semester.setComplete(status == 1);
-        }
-
-        helper.closeDatabase(db);
-        return semester;
-    }
-
     public Semester getOngoingSemester() {
         String selectQuery = "SELECT  * FROM " + TABLE_NAME + " WHERE "
                 + KEY_SEMESTER_STATUS + " = " + false;

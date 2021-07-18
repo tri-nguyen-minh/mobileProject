@@ -51,29 +51,6 @@ public class PlanSemesterDBHelper {
         return result;
     }
 
-    public PlanSemester getSemesterById(String id) {
-        String selectQuery = "SELECT  * FROM " + TABLE_NAME + " WHERE "
-                + KEY_SEMESTER_ID + " = '" + id + "'";
-
-        db = helper.getReadableDatabase();
-        cursor = db.rawQuery(selectQuery, null);
-
-        PlanSemester semester = null;
-        if (cursor.moveToFirst()) {
-            
-            semester = new PlanSemester();
-            semester.setPlanSemesterId(cursor.getInt(cursor.getColumnIndex(KEY_PLAN_SEMESTER_ID)));
-            semester.setPlanSemesterName(cursor.getString(cursor.getColumnIndex(KEY_PLAN_SEMESTER_NAME)));
-            semester.setStudentId(cursor.getString(cursor.getColumnIndex(KEY_STUDENT_ID)));
-            semester.setSemesterId(cursor.getString(cursor.getColumnIndex(KEY_SEMESTER_ID)));
-            int status = cursor.getInt(cursor.getColumnIndex(KEY_STATUS));
-            semester.setComplete(status == 1);
-        }
-
-        helper.closeDatabase(db);
-        return semester;
-    }
-
     public PlanSemester getSemesterByStudentAndSemester(String studentId, String semesterId) {
         String selectQuery = "SELECT  * FROM " + TABLE_NAME + " WHERE "
                 + KEY_STUDENT_ID + " = '" + studentId + "' AND " + KEY_SEMESTER_ID + " = '" + semesterId + "'";

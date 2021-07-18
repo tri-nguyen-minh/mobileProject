@@ -185,7 +185,7 @@
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
                 <TextView
-                    android:id="@+id/txtActionTaskAdd"
+                    android:id="@+id/txtSearch"
                     android:text="SEARCH"
                     style="@style/btn_action_search_subject"/>
 

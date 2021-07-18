@@ -23,8 +23,6 @@ import dev.mobile.project.recycleviewadapter.RecViewSubjectAdapter;
 public class SearchSubjectActivity extends AppCompatActivity {
 
     private EditText editCommon;
-    private Intent intent;
-    private String studentId;
     private RecyclerView recViewSubjectSearch;
     private RecViewSubjectAdapter adapter;
 
@@ -36,9 +34,6 @@ public class SearchSubjectActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search_subject);
-
-        intent = getIntent();
-        studentId = intent.getStringExtra("STUDENT_ID");
 
         db = new DatabaseHelper(getApplicationContext());
         subjectDBHelper = new SubjectDBHelper(db);
@@ -53,8 +48,8 @@ public class SearchSubjectActivity extends AppCompatActivity {
                 searchDrawerHandle.performClick();
             }
         });
-        TextView txtActionTaskAdd = findViewById(R.id.txtActionTaskAdd);
-        txtActionTaskAdd.setOnClickListener(new View.OnClickListener() {
+        TextView txtSearch = findViewById(R.id.txtSearch);
+        txtSearch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 RelativeLayout searchDrawerHandle = findViewById(R.id.searchDrawerHandle);

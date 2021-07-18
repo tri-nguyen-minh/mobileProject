@@ -15,8 +15,13 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.List;
 
 import dev.mobile.project.DBHelper.DatabaseHelper;
+import dev.mobile.project.DBHelper.PlanSubjectDBHelper;
+import dev.mobile.project.DBHelper.PlanTopicDBHelper;
+import dev.mobile.project.DBHelper.SubjectDBHelper;
 import dev.mobile.project.R;
 import dev.mobile.project.activities.TaskActivity;
+import dev.mobile.project.dto.PlanSubject;
+import dev.mobile.project.dto.PlanTopic;
 import dev.mobile.project.dto.Subject;
 import dev.mobile.project.dto.Task;
 
@@ -26,20 +31,21 @@ public class RecViewTaskAdapter extends RecyclerView.Adapter<RecViewTaskAdapter.
     private Activity activity;
     private Intent intent;
     private List<Task> taskList;
-    private Subject subject;
     private Task task;
+    private SubjectDBHelper subjectDBHelper;
+    private PlanTopicDBHelper planTopicDBHelper;
+    private PlanSubjectDBHelper planSubjectDBHelper;
 
     public RecViewTaskAdapter(Context context, Activity activity, DatabaseHelper db) {
         this.context = context;
         this.activity = activity;
+        subjectDBHelper = new SubjectDBHelper(db);
+        planTopicDBHelper = new PlanTopicDBHelper(db);
+        planSubjectDBHelper = new PlanSubjectDBHelper(db);
     }
 
     public void setTaskList(List<Task> taskList) {
         this.taskList = taskList;
-    }
-
-    public void setSubject(Subject subject) {
-        this.subject = subject;
     }
 
     @Override
@@ -52,8 +58,10 @@ public class RecViewTaskAdapter extends RecyclerView.Adapter<RecViewTaskAdapter.
     @Override
     public void onBindViewHolder(RecViewTaskAdapter.ViewHolder holder, int position) {
         task = taskList.get(position);
+        PlanTopic planTopic = planTopicDBHelper.getPlanTopicByPlanTopicId(task.getPlanTopicId());
+        PlanSubject planSubject = planSubjectDBHelper.getPlanSubjectsById(planTopic.getPlanSubjectId());
         holder.txtTaskDescription.setText(task.getDescription());
-        holder.txtSubjectName.setText(subject.getSubjectName());
+        holder.txtSubjectName.setText(subjectDBHelper.getSubjectById(planSubject.getSubjectId()).getSubjectName());
         holder.txtDueDate.setText(task.getDueDate());
         holder.txtEffortTime.setText(task.getEffortTime() + "");
         holder.txtEstimateTime.setText(task.getEstimateTime() + "");

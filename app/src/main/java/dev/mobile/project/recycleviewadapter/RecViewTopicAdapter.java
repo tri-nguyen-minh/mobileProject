@@ -106,7 +106,6 @@ public class RecViewTopicAdapter extends RecyclerView.Adapter<RecViewTopicAdapte
             }
             holder.txtTaskCount.setText(taskList.size() + "");
             RecViewTaskAdapter adapter = new RecViewTaskAdapter(context, activity, db);
-            adapter.setSubject(subject);
             adapter.setTaskList(taskList);
             holder.recViewTopicTask.setAdapter(adapter);
             holder.recViewTopicTask.setLayoutManager(new LinearLayoutManager(context, RecyclerView.VERTICAL,false));

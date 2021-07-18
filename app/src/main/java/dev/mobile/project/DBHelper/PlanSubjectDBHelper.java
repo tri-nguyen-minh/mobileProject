@@ -54,31 +54,6 @@ public class PlanSubjectDBHelper {
         return result;
     }
 
-    public List<PlanSubject> getAllSubjects() {
-        List<PlanSubject> planSubjects = new ArrayList<>();
-        String selectQuery = "SELECT  * FROM " + TABLE_NAME;
-
-        db = helper.getReadableDatabase();
-        cursor = db.rawQuery(selectQuery, null);
-        PlanSubject subject;
-        if (cursor.moveToFirst()) {
-            do {
-                subject = new PlanSubject();
-                subject.setPlanSubjectId(cursor.getInt(cursor.getColumnIndex(KEY_PLAN_SUBJECT_ID)));
-                subject.setPlanSemesterId(cursor.getInt(cursor.getColumnIndex(KEY_PLAN_SEMESTER_ID)));
-                subject.setSubjectId(cursor.getString(cursor.getColumnIndex(KEY_SUBJECT_ID)));
-                subject.setPriority(cursor.getInt(cursor.getColumnIndex(KEY_PRIORITY)));
-                subject.setProgress(cursor.getInt(cursor.getColumnIndex(KEY_PROGRESS)));
-                int status = cursor.getInt(cursor.getColumnIndex(KEY_STATUS));
-                subject.setComplete(status == 1);
-
-                planSubjects.add(subject);
-            } while (cursor.moveToNext());
-        }
-
-        helper.closeDatabase(db);
-        return planSubjects;
-    }
     public List<PlanSubject> getAllSubjectsByPlanSemester(int planSemesterId) {
         List<PlanSubject> planSubjects = new ArrayList<>();
         String selectQuery = "SELECT  * FROM " + TABLE_NAME + " WHERE " +
