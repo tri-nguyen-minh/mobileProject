@@ -20,8 +20,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 import dev.mobile.project.DBHelper.DatabaseHelper;
+import dev.mobile.project.DBHelper.PlanSemesterDBHelper;
+import dev.mobile.project.DBHelper.PlanSubjectDBHelper;
+import dev.mobile.project.DBHelper.PlanTopicDBHelper;
+import dev.mobile.project.DBHelper.SemesterDBHelper;
 import dev.mobile.project.DBHelper.TaskDBHelper;
 import dev.mobile.project.R;
+import dev.mobile.project.dto.PlanSemester;
+import dev.mobile.project.dto.PlanSubject;
+import dev.mobile.project.dto.PlanTopic;
 import dev.mobile.project.dto.Task;
 import dev.mobile.project.recycleviewadapter.RecViewTaskAdapter;
 
@@ -29,6 +36,11 @@ public class TaskFragment extends Fragment {
 
     private EditText editCommon;
     private List<Task> taskList;
+    private List<PlanSemester> semesterList;
+    private List<PlanSubject> planSubjectList;
+    private List<Integer> planSubjectIdList;
+    private List<Integer> planTopicIdList;
+    private List<PlanTopic> planTopicList;
     private ArrayList<String> spinnerData;
     private ArrayAdapter<String> dataAdapter;
     private RecyclerView recViewTaskSearch;
@@ -38,6 +50,10 @@ public class TaskFragment extends Fragment {
 
     private DatabaseHelper db;
     private TaskDBHelper taskDBHelper;
+    private PlanSemesterDBHelper planSemesterDBHelper;
+    private PlanSubjectDBHelper planSubjectDBHelper;
+    private PlanTopicDBHelper planTopicDBHelper;
+    private SemesterDBHelper semesterDBHelper;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -50,6 +66,10 @@ public class TaskFragment extends Fragment {
 
         db = new DatabaseHelper(getContext());
         taskDBHelper = new TaskDBHelper(db);
+        planSemesterDBHelper = new PlanSemesterDBHelper(db);
+        planSubjectDBHelper = new PlanSubjectDBHelper(db);
+        planTopicDBHelper = new PlanTopicDBHelper(db);
+        semesterDBHelper = new SemesterDBHelper(db);
         return inflater.inflate(R.layout.fragment_main_2_task, container, false);
     }
 
@@ -96,11 +116,37 @@ public class TaskFragment extends Fragment {
     }
 
     private void setupTaskList() {
+        planSubjectIdList = new ArrayList<>();
+        planTopicIdList = new ArrayList<>();
         editCommon = getView().findViewById(R.id.editDescription);
         String description = editCommon.getText().toString();
         int priority = spinnerTaskPriority.getSelectedItemPosition();
         boolean status = spinnerTaskStatus.getSelectedItemPosition() == 1;
         taskList = taskDBHelper.searchTaskByCondition(description, priority, status);
+        if (taskList.size() > 0) {
+            semesterList = planSemesterDBHelper.getSemesterByStudentId(getActivity().getIntent().getStringExtra("STUDENT_ID"));
+            for (PlanSemester semester : semesterList) {
+                planSubjectList = planSubjectDBHelper.getAllSubjectsByPlanSemester(semester.getPlanSemesterId());
+                for (PlanSubject subject : planSubjectList) {
+                    planSubjectIdList.add(subject.getPlanSubjectId());
+                }
+            }
+            for (int id : planSubjectIdList) {
+                planTopicList = planTopicDBHelper.getPlanTopicByPlanSubjectId(id);
+                for (PlanTopic topic : planTopicList) {
+                    planTopicIdList.add(topic.getPlanTopicId());
+                }
+            }
+            List<Integer> indexList = new ArrayList<>();
+            for (Task task : taskList) {
+                if (planTopicIdList.indexOf(task.getPlanTopicId()) < 0) {
+                    indexList.add(taskList.indexOf(task));
+                }
+            }
+            for (int index : indexList) {
+                taskList.remove(index);
+            }
+        }
         adapter = new RecViewTaskAdapter(getContext(), getActivity(), db);
         adapter.setTaskList(taskList);
         recViewTaskSearch.setAdapter(adapter);

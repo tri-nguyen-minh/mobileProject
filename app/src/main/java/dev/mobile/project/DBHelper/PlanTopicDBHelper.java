@@ -4,6 +4,9 @@ import android.content.ContentValues;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import dev.mobile.project.dto.PlanSemester;
 import dev.mobile.project.dto.PlanTopic;
 
@@ -94,5 +97,31 @@ public class PlanTopicDBHelper {
 
         helper.closeDatabase(db);
         return topic;
+    }
+    public List<PlanTopic> getPlanTopicByPlanSubjectId(int planSubjectId) {
+        List<PlanTopic> topicList = new ArrayList<>();
+        String selectQuery = "SELECT  * FROM " + TABLE_NAME + " WHERE "
+                +  KEY_PLAN_SUBJECT_ID + " = " + planSubjectId;
+
+        db = helper.getReadableDatabase();
+        cursor = db.rawQuery(selectQuery, null);
+
+        PlanTopic topic = null;
+        if (cursor.moveToFirst()) {
+            do {
+            topic = new PlanTopic();
+            topic.setPlanTopicId(cursor.getInt(cursor.getColumnIndex(KEY_PLAN_TOPIC_ID)));
+            topic.setPlanSubjectId(cursor.getInt(cursor.getColumnIndex(KEY_PLAN_SUBJECT_ID)));
+            topic.setTopicId(cursor.getInt(cursor.getColumnIndex(KEY_TOPIC_ID)));
+            topic.setProgress(cursor.getInt(cursor.getColumnIndex(KEY_PROGRESS)));
+            int status = cursor.getInt(cursor.getColumnIndex(KEY_STATUS));
+            topic.setComplete(status == 1);
+
+            topicList.add(topic);
+            } while (cursor.moveToNext());
+        }
+
+        helper.closeDatabase(db);
+        return topicList;
     }
 }

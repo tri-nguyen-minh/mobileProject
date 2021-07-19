@@ -5,6 +5,9 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import dev.mobile.project.dto.PlanSemester;
 import dev.mobile.project.dto.Semester;
 
@@ -49,6 +52,33 @@ public class PlanSemesterDBHelper {
         long result = db.insert(TABLE_NAME, null, values);
         helper.closeDatabase(db);
         return result;
+    }
+    public List<PlanSemester> getSemesterByStudentId(String studentId) {
+        List<PlanSemester> semesterList = new ArrayList<>();
+        String selectQuery = "SELECT  * FROM " + TABLE_NAME + " WHERE "
+                + KEY_STUDENT_ID + " = '" + studentId + "'";
+
+        db = helper.getReadableDatabase();
+        cursor = db.rawQuery(selectQuery, null);
+
+        PlanSemester semester = null;
+        if (cursor.moveToFirst()) {
+
+            do {
+            semester = new PlanSemester();
+            semester.setPlanSemesterId(cursor.getInt(cursor.getColumnIndex(KEY_PLAN_SEMESTER_ID)));
+            semester.setPlanSemesterName(cursor.getString(cursor.getColumnIndex(KEY_PLAN_SEMESTER_NAME)));
+            semester.setStudentId(cursor.getString(cursor.getColumnIndex(KEY_STUDENT_ID)));
+            semester.setSemesterId(cursor.getString(cursor.getColumnIndex(KEY_SEMESTER_ID)));
+            int status = cursor.getInt(cursor.getColumnIndex(KEY_STATUS));
+            semester.setComplete(status == 1);
+
+            semesterList.add(semester);
+            } while (cursor.moveToNext());
+        }
+
+        helper.closeDatabase(db);
+        return semesterList;
     }
 
     public PlanSemester getSemesterByStudentAndSemester(String studentId, String semesterId) {

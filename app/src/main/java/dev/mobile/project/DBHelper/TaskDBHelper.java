@@ -60,34 +60,6 @@ public class TaskDBHelper {
         helper.closeDatabase(db);
         return result;
     }
-    public List<Task> getAllTask() {
-        List<Task> tasks = new ArrayList<>();
-        String selectQuery = "SELECT  * FROM " + TABLE_NAME;
-
-        db = helper.getReadableDatabase();
-        cursor = db.rawQuery(selectQuery, null);
-        Task task;
-        if (cursor.moveToFirst()) {
-            do {
-                task = new Task();
-                task.setTaskId(cursor.getInt(cursor.getColumnIndex(KEY_TASK_ID)));
-                task.setPlanTopicId(cursor.getInt(cursor.getColumnIndex(KEY_PLAN_TOPIC_ID)));
-                task.setEstimateTime(cursor.getInt(cursor.getColumnIndex(KEY_ESTIMATE_TIME)));
-                task.setEffortTime(cursor.getInt(cursor.getColumnIndex(KEY_EFFORT_TIME)));
-                task.setDescription(cursor.getString(cursor.getColumnIndex(KEY_TASK_DESCRIPTION)));
-                task.setDueDate(cursor.getString(cursor.getColumnIndex(KEY_DUE_DATE)));
-                task.setCreateDate(cursor.getString(cursor.getColumnIndex(KEY_CREATE_DATE)));
-                task.setPriority(cursor.getInt(cursor.getColumnIndex(KEY_PRIORITY)));
-                int status = cursor.getInt(cursor.getColumnIndex(KEY_STATUS));
-                task.setComplete(status == 1);
-
-                tasks.add(task);
-            } while (cursor.moveToNext());
-        }
-
-        helper.closeDatabase(db);
-        return tasks;
-    }
 
     public Task getTaskById(int taskId) {
         String selectQuery = "SELECT  * FROM " + TABLE_NAME + " WHERE "
